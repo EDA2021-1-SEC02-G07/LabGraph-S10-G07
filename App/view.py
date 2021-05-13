@@ -28,6 +28,7 @@
 import sys
 import config
 import threading
+import time
 from App import controller
 from DISClib.ADT import stack
 assert config
@@ -44,7 +45,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-servicefile = 'bus_routes_14000.csv'
+servicefile = 'bus_routes_50.csv'
 initialStation = None
 
 # ___________________________________________________
@@ -83,8 +84,10 @@ def optionThree(cont):
 
 
 def optionFour(cont, initialStation):
+    ti = time.time()
     controller.minimumCostPaths(cont, initialStation)
-
+    tf = time.time()
+    print('Tiempo de ejecución:', tf-ti)
 
 def optionFive(cont, destStation):
     haspath = controller.hasPath(cont, destStation)
@@ -94,6 +97,7 @@ def optionFive(cont, destStation):
 
 
 def optionSix(cont, destStation):
+    ti = time.time()
     path = controller.minimumCostPath(cont, destStation)
     if path is not None:
         pathlen = stack.size(path)
@@ -103,7 +107,8 @@ def optionSix(cont, destStation):
             print(stop)
     else:
         print('No hay camino')
-
+    tf = time.time()
+    print('Tiempo de ejecución:', tf-ti)
 
 def optionSeven(cont):
     maxvert, maxdeg = controller.servedRoutes(cont)
